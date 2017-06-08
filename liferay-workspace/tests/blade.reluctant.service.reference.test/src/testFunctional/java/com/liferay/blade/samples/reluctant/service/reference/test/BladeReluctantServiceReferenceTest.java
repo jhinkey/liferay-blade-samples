@@ -29,6 +29,7 @@ import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
 
 import org.junit.Assert;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -52,6 +53,7 @@ public class BladeReluctantServiceReferenceTest {
 		return ShrinkWrap.createFromZipFile(JavaArchive.class, jarFile);
 	}
 
+	@Ignore
 	@Test
 	public void testBladeSampleGreedyStaticServiceReferencePortlet() {
 		_webDriver.get(_greedyPortletURL.toExternalForm());
@@ -74,7 +76,7 @@ public class BladeReluctantServiceReferenceTest {
 
 	@Test
 	public void testBladeSampleReluctantStaticServiceReferencePortlet()
-		throws PortalException {
+		throws PortalException, InterruptedException {
 
 		_webDriver.get(_reluctantPortletURL.toExternalForm());
 
@@ -91,6 +93,16 @@ public class BladeReluctantServiceReferenceTest {
 			_reluctantPortletBody.getText().contentEquals(
 				"I'm calling service ...\ncom.liferay.blade.reluctant." +
 					"service.reference.impl.SomeServiceImpl"));
+		
+		Assert.assertTrue(
+			textIsVisible(_reluctantPortletBody, "CustomServiceImpl"));
+		
+		Assert.assertTrue(
+			_reluctantPortletBody.getText(),
+			_reluctantPortletBody.getText().contentEquals(
+				"I'm calling service ...\ncom.liferay.blade.custom.service." +
+					"CustomServiceImpl, which delegates to com.liferay.blade." +
+						"reluctant.service.reference.impl.SomeServiceImpl"));
 	}
 
 	protected boolean isVisible(WebElement webelement) {
@@ -98,6 +110,20 @@ public class BladeReluctantServiceReferenceTest {
 
 		try {
 			webDriverWait.until(ExpectedConditions.visibilityOf(webelement));
+
+			return true;
+		}
+		catch (org.openqa.selenium.TimeoutException te) {
+			return false;
+		}
+	}
+	
+	protected boolean textIsVisible(WebElement webelement, String string) {
+		WebDriverWait webDriverWait = new WebDriverWait(_webDriver, 30);
+
+		try {			
+			webDriverWait.until(ExpectedConditions.textToBePresentInElement(
+				webelement, string));
 
 			return true;
 		}

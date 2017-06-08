@@ -37,15 +37,20 @@ task testFunctional(type: Test) {
 
 	dependsOn ":initBundle", startTestableTomcat
 	dependsOn ":modules:blade.reluctant.service.reference:deploy"
-	dependsOn ":modules:blade.greedy.service.reference:deploy"
-	dependsOn ":modules:blade.custom.service:jar"
+	dependsOn ":modules:blade.custom.svc:jar"
 
-	systemProperty 'jarFile', project(':modules:blade.custom.service').jar.archivePath
+	systemProperty 'jarFile', project(':modules:blade.custom.svc').jar.archivePath
 
 	finalizedBy {
 		stopTestableTomcat
 	}
-
+	
+	doFirst {
+		def configFile = "com.liferay.blade.reluctant.service.reference.portlet.ReluctantServiceReferencePortlet.cfg"
+		def configPath = rootDir.path + "/modules/blade.custom.svc/configs/"
+		new File(liferay.liferayHome, "/osgi/configs/${configFile}") << new File(configPath + configFile)			
+	}
+	
 	doLast {
 		delete new File("target/drone-phantomjs")
 	}
