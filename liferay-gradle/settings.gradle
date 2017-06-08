@@ -5,7 +5,7 @@ include(
 	'blade.configurationaction',
 	'blade.controlmenuentry',
 	'blade.corejsphook',
-	'blade.custom.service',
+	'blade.custom.svc',
 	'blade.doclib.resourcecommand.override',
 	'blade.document.action',
 	'blade.friendlyurl',

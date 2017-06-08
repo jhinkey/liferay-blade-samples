@@ -26,7 +26,7 @@
 		<module>blade.configurationaction</module>
 		<module>blade.controlmenuentry</module>
 		<module>blade.corejsphook</module>
-		<module>blade.custom.service</module>
+		<module>blade.custom.svc</module>
 		<module>blade.doclib.resourcecommand.override</module>
 		<module>blade.document.action</module>
 		<module>blade.friendlyurl</module>
