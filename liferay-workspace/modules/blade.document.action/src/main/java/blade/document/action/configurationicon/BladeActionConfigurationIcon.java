@@ -1,23 +1,23 @@
 /**
- * Copyright 2000-present Liferay, Inc.
+ * Copyright (c) 2000-present Liferay, Inc. All rights reserved.
  *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
+ * This library is free software; you can redistribute it and/or modify it under
+ * the terms of the GNU Lesser General Public License as published by the Free
+ * Software Foundation; either version 2.1 of the License, or (at your option)
+ * any later version.
  *
- *   http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
+ * This library is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
+ * details.
  */
 
 package blade.document.action.configurationicon;
 
 import com.liferay.document.library.kernel.service.DLAppService;
 import com.liferay.portal.kernel.exception.PortalException;
+import com.liferay.portal.kernel.log.Log;
+import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.portlet.LiferayWindowState;
 import com.liferay.portal.kernel.portlet.PortletURLFactoryUtil;
 import com.liferay.portal.kernel.portlet.configuration.icon.BasePortletConfigurationIcon;
@@ -41,10 +41,9 @@ import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 
 /**
- * This class is for adding context menu to Document Detail screen options(top right corner) in
- * Documents and Media admin portlet.<br/>
- * see
- * <a href="https://dev.liferay.com/develop/tutorials/-/knowledge_base/7-0/applying-lexicon-styles-to-your-app#configuring-your-apps-actions-menu">CONFIGURING YOUR APPS ACTIONS MENU</a>.
+ * Adds the new context menu option to the Document Detail screen options (top
+ * right corner) of the Documents and Media Admin portlet.
+ *
  * @author liferay
  */
 @Component(
@@ -57,16 +56,13 @@ import org.osgi.service.component.annotations.Reference;
 )
 public class BladeActionConfigurationIcon extends BasePortletConfigurationIcon {
 
-	@Reference private DLAppService _dlAppService;
-	@Reference private Portal _portal;
-
 	public String getMessage(PortletRequest portletRequest) {
 		return "Blade Basic Info";
 	}
 
 	public String getURL(
-		PortletRequest portletRequest, PortletResponse portletResponse)
-	{
+		PortletRequest portletRequest, PortletResponse portletResponse) {
+
 		HttpServletRequest servletRequest = _portal.getHttpServletRequest(
 			portletRequest);
 
@@ -92,6 +88,7 @@ public class BladeActionConfigurationIcon extends BasePortletConfigurationIcon {
 				fileEntry.getLatestFileVersion().getStatus());
 		}
 		catch (PortalException pe) {
+			_log.error(pe);
 		}
 
 		portletURL.setParameter("fileName", fileName);
@@ -105,12 +102,18 @@ public class BladeActionConfigurationIcon extends BasePortletConfigurationIcon {
 			portletURL.setWindowState(LiferayWindowState.POP_UP);
 		}
 		catch (WindowStateException wse) {
+			_log.error(wse);
 		}
 
-		return "javascript:Liferay.Util.openWindow(" +
-			"{dialog: {cache: false,width:800,modal: true}," +
-				"title: 'basic information',id: 'testPopupIdUnique',uri: '" +
-					portletURL.toString() + "'});";
+		StringBuilder stringBuilder = new StringBuilder();
+
+		stringBuilder.append("javascript:Liferay.Util.openWindow(");
+		stringBuilder.append("{dialog: {cache: false,width:800,modal: true},");
+		stringBuilder.append("title: 'basic information',id: ");
+		stringBuilder.append("'testPopupIdUnique',uri: '");
+		stringBuilder.append(portletURL.toString() + "'});");
+
+		return stringBuilder.toString();
 	}
 
 	public boolean isShow(PortletRequest portletRequest) {
@@ -142,8 +145,18 @@ public class BladeActionConfigurationIcon extends BasePortletConfigurationIcon {
 			return fileEntry;
 		}
 		catch (PortalException pe) {
+			_log.error(pe);
 			return null;
 		}
 	}
+
+	private static final Log _log = LogFactoryUtil.getLog(
+		BladeActionConfigurationIcon.class);
+
+	@Reference
+	private DLAppService _dlAppService;
+
+	@Reference
+	private Portal _portal;
 
 }

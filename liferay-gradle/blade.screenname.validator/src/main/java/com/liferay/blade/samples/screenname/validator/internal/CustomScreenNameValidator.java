@@ -1,3 +1,17 @@
+/**
+ * Copyright (c) 2000-present Liferay, Inc. All rights reserved.
+ *
+ * This library is free software; you can redistribute it and/or modify it under
+ * the terms of the GNU Lesser General Public License as published by the Free
+ * Software Foundation; either version 2.1 of the License, or (at your option)
+ * any later version.
+ *
+ * This library is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
+ * details.
+ */
+
 package com.liferay.blade.samples.screenname.validator.internal;
 
 import com.liferay.blade.samples.screenname.validator.CustomScreenName;
@@ -14,10 +28,11 @@ import com.liferay.portal.kernel.settings.CompanyServiceSettingsLocator;
 import com.liferay.portal.kernel.util.PropsKeys;
 import com.liferay.portal.kernel.util.PropsUtil;
 import com.liferay.portal.kernel.util.StringUtil;
-import org.osgi.service.component.annotations.Component;
-import org.osgi.service.component.annotations.Reference;
 
 import java.util.Locale;
+
+import org.osgi.service.component.annotations.Component;
+import org.osgi.service.component.annotations.Reference;
 
 /**
  * Provides methods to validate the user's screen name client-side and
@@ -65,6 +80,7 @@ public class CustomScreenNameValidator implements ScreenNameValidator {
 			javascript.append(")}");
 		}
 		catch (PortalException pe) {
+			_log.error(pe);
 		}
 
 		return javascript.toString();
@@ -118,7 +134,7 @@ public class CustomScreenNameValidator implements ScreenNameValidator {
 					companyId, CustomScreenName.SETTINGS_ID));
 		}
 		catch (ConfigurationException ce) {
-			_log.error("Error initializing the configuration.");
+			_log.error("Error initializing the configuration.", ce);
 		}
 
 		return null;

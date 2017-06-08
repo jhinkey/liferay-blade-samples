@@ -4,16 +4,16 @@ repoDir=`pwd`
 function buildAll() {
   cd "$repoDir"
   cd liferay-gradle
-  ./gradlew clean build
+  ./gradlew checkSourceFormatting clean build
   cd "$repoDir"
   cd maven
   mvn --fail-at-end clean package
   cd "$repoDir"
   cd liferay-workspace
-  ./gradlew clean build -x :tests:test
+  ./gradlew clean build
   cd "$repoDir"
   ./gradlew bundlesTest warsTest diff
   cd liferay-workspace
-  ./gradlew build $@
+  ./gradlew check -Pliferay.workspace.modules.dir=modules,tests $@
 }
 buildAll

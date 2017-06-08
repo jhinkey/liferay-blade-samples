@@ -26,13 +26,17 @@
 		<module>blade.configurationaction</module>
 		<module>blade.controlmenuentry</module>
 		<module>blade.corejsphook</module>
+		<module>blade.custom.svc</module>
 		<module>blade.doclib.resourcecommand.override</module>
 		<module>blade.document.action</module>
 		<module>blade.friendlyurl</module>
 		<module>blade.gogo</module>
+		<module>blade.greedy.service.reference</module>
 		<module>blade.hook.jsp</module>
 		<module>blade.hook.resourcebundle</module>
 		<module>blade.indexerpostprocessor</module>
+		<module>blade.language</module>
+		<module>blade.language.web</module>
 		<module>blade.lifecycle.loginpreaction</module>
 		<module>blade.modellistener</module>
 		<module>blade.pollprocessor</module>
@@ -49,6 +53,7 @@
 		<module>blade.portlet.resourcecommand</module>
 		<module>blade.portlet.springmvc</module>
 		<module>blade.portlet.toolbar.contributor</module>
+		<module>blade.reluctant.service.reference</module>
 		<module>blade.resourcebundle</module>
 		<module>blade.rest</module>
 		<module>blade.schedulerentry</module>
@@ -56,7 +61,6 @@
 		<module>blade.service.hook.user</module>
 		<module>blade.servicebuilder.api</module>
 		<module>blade.servicebuilder.svc</module>
-		<module>blade.servicebuilder.test</module>
 		<module>blade.servicebuilder.web</module>
 		<module>blade.simulation.panel.app</module>
 		<module>blade.strutsaction</module>
