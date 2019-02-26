@@ -12,8 +12,12 @@
 	<version>1.0.0</version>
 	<packaging>war</packaging>
 	<properties>
+		<com.liferay.css.builder.outputDir>${project.build.directory}/build-css</com.liferay.css.builder.outputDir>
 		<com.liferay.portal.tools.theme.builder.outputDir>target/build-theme</com.liferay.portal.tools.theme.builder.outputDir>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<com.liferay.frontend.css.common.version>3.0.1</com.liferay.frontend.css.common.version>
+		<com.liferay.frontend.theme.styled.version>3.0.4</com.liferay.frontend.theme.styled.version>
+		<com.liferay.frontend.theme.unstyled.version>3.0.4</com.liferay.frontend.theme.unstyled.version>
 	</properties>
 	<build>
 		<plugins>
@@ -35,7 +39,11 @@
 							<directory>${com.liferay.portal.tools.theme.builder.outputDir}</directory>
 							<excludes>
 								<exclude>**/*.scss</exclude>
+								<exclude>**/*.sass-cache/</exclude>
 							</excludes>
+						</resource>
+						<resource>
+							<directory>${com.liferay.css.builder.outputDir}</directory>
 						</resource>
 					</webResources>
 				</configuration>
@@ -43,30 +51,31 @@
 			<plugin>
 				<groupId>com.liferay</groupId>
 				<artifactId>com.liferay.css.builder</artifactId>
-				<version>1.0.23</version>
+				<version>2.1.2</version>
 				<executions>
 					<execution>
 						<id>default-build-css</id>
 						<phase>compile</phase>
 						<goals>
-							<goal>build-css</goal>
+							<goal>build</goal>
 						</goals>
 					</execution>
 				</executions>
 				<configuration>
-					<docrootDirName>${com.liferay.portal.tools.theme.builder.outputDir}</docrootDirName>
+					<baseDir>${com.liferay.portal.tools.theme.builder.outputDir}</baseDir>
+					<outputDirName>${com.liferay.css.builder.outputDir}</outputDirName>
 					<precision>9</precision>
 				</configuration>
 			</plugin>
 			<plugin>
 				<groupId>com.liferay</groupId>
 				<artifactId>com.liferay.portal.tools.theme.builder</artifactId>
-				<version>1.1.1</version>
+				<version>1.1.5</version>
 				<executions>
 					<execution>
 						<phase>generate-resources</phase>
 						<goals>
-							<goal>build-theme</goal>
+							<goal>build</goal>
 						</goals>
 						<configuration>
 							<diffsDir>src/main/webapp/</diffsDir>
@@ -80,4 +89,24 @@
 			</plugin>
 		</plugins>
 	</build>
+	<dependencies>
+		<dependency>
+			<groupId>com.liferay</groupId>
+			<artifactId>com.liferay.frontend.css.common</artifactId>
+			<version>${com.liferay.frontend.css.common.version}</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.liferay</groupId>
+			<artifactId>com.liferay.frontend.theme.styled</artifactId>
+			<version>${com.liferay.frontend.theme.styled.version}</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.liferay</groupId>
+			<artifactId>com.liferay.frontend.theme.unstyled</artifactId>
+			<version>${com.liferay.frontend.theme.unstyled.version}</version>
+			<scope>provided</scope>
+		</dependency>
+	</dependencies>
 </project>

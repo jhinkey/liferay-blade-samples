@@ -31,14 +31,17 @@
 				<artifactId>maven-war-plugin</artifactId>
 				<version>3.0.0</version>
 				<configuration>
-					<packagingExcludes>**/*.scss,**/.sass-cache</packagingExcludes>
+					<packagingExcludes>**/*.scss,**/.sass-cache/</packagingExcludes>
 					<webResources>
 						<resource>
 							<directory>src/main/webapp</directory>
 							<excludes>
 								<exclude>**/*.scss</exclude>
-								<exclude>**/.sass-cache</exclude>
+								<exclude>**/.sass-cache/</exclude>
 							</excludes>
+						</resource>
+						<resource>
+							<directory>${project.build.directory}/compiledCss</directory>
 						</resource>
 					</webResources>
 				</configuration>
@@ -46,18 +49,19 @@
 			<plugin>
 				<groupId>com.liferay</groupId>
 				<artifactId>com.liferay.css.builder</artifactId>
-				<version>1.0.23</version>
+				<version>2.0.2</version>
 				<executions>
 					<execution>
 						<id>default-build-css</id>
 						<phase>compile</phase>
 						<goals>
-							<goal>build-css</goal>
+							<goal>build</goal>
 						</goals>
 					</execution>
 				</executions>
 				<configuration>
 					<docrootDirName>src/main/webapp</docrootDirName>
+					<outputDirName>${project.build.directory}/compiledCss</outputDirName>
 					<precision>9</precision>
 				</configuration>
 			</plugin>
@@ -67,14 +71,14 @@
 	<dependencies>
 		<dependency>
 			<groupId>blade</groupId>
-			<artifactId>foo-api</artifactId>
+			<artifactId>basic-api</artifactId>
 			<version>1.0.0</version>
 			<scope>provided</scope>
 		</dependency>
 		<dependency>
 			<groupId>javax.portlet</groupId>
 			<artifactId>portlet-api</artifactId>
-			<version>2.0</version>
+			<version>3.0.0</version>
 			<scope>provided</scope>
 		</dependency>
 		<dependency>
@@ -92,7 +96,7 @@
 		<dependency>
 			<groupId>com.liferay.portal</groupId>
 			<artifactId>com.liferay.portal.kernel</artifactId>
-			<version>2.6.0</version>
+			<version>3.0.0</version>
 			<scope>provided</scope>
 		</dependency>
 		<dependency>
@@ -146,6 +150,5 @@
 			<version>${version.spring}</version>
 		</dependency>
 	</dependencies>
-
 
 </project>

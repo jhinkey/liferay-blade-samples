@@ -1,16 +1,18 @@
 <%--
 /**
- * Copyright (c) 2000-present Liferay, Inc. All rights reserved.
+ * Copyright 2000-present Liferay, Inc.
  *
- * This library is free software; you can redistribute it and/or modify it under
- * the terms of the GNU Lesser General Public License as published by the Free
- * Software Foundation; either version 2.1 of the License, or (at your option)
- * any later version.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
  *
- * This library is distributed in the hope that it will be useful, but WITHOUT
- * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
- * FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
- * details.
+ *   http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 --%>
 
@@ -18,26 +20,35 @@
 
 <%@ include file="/init.jsp" %>
 
-<liferay-portlet:actionURL portletConfiguration="<%= true %>"
+<liferay-portlet:actionURL
+	portletConfiguration="<%= true %>"
 	var="configurationActionURL"
 />
 
-<liferay-portlet:renderURL portletConfiguration="<%= true %>"
+<liferay-portlet:renderURL
+	portletConfiguration="<%= true %>"
 	var="configurationRenderURL"
 />
 
 <aui:form action="<%= configurationActionURL %>" method="post" name="fm">
-	<aui:input name="<%= Constants.CMD %>" type="hidden"
+	<aui:input
+		name="<%= Constants.CMD %>"
+		type="hidden"
 		value="<%= Constants.UPDATE %>"
 	/>
 
-	<aui:input name="redirect" type="hidden"
+	<aui:input
+		name="redirect"
+		type="hidden"
 		value="<%= configurationRenderURL %>"
 	/>
 
 	<aui:fieldset>
-		<aui:select name="fontFamily" label="Font Family"
-			value="<%= fontFamily %>">
+		<aui:select
+			label="Font Family"
+			name="fontFamily"
+			value="<%= fontFamily %>"
+		>
 			<aui:option value="Arial">Arial</aui:option>
 			<aui:option value="Comic Sans MS">Comic Sans MS</aui:option>
 			<aui:option value="Courier New">Courier New</aui:option>
@@ -54,8 +65,11 @@
 			<aui:option value="15">15</aui:option>
 		</aui:select>
 
-		<aui:select name="fontColor" label="Font Color"
-			value="<%= fontColor %>">
+		<aui:select
+			label="Font Color"
+			name="fontColor"
+			value="<%= fontColor %>"
+		>
 			<aui:option value="voilet">Voilet</aui:option>
 			<aui:option value="indigo">Indigo</aui:option>
 			<aui:option value="blue">Blue</aui:option>

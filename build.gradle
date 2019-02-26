@@ -12,10 +12,10 @@ buildscript {
 import net.diibadaaba.zipdiff.DifferenceCalculator
 import net.diibadaaba.zipdiff.Differences
 import org.apache.commons.compress.archivers.zip.ZipArchiveEntry
-import org.apache.commons.io.FileUtils
+import groovy.io.FileType
 
-FileTree gradleBundles = fileTree(dir: 'gradle', include: '**/libs/*.jar')
-FileTree liferayWorkspaceBundles = fileTree(dir: 'liferay-workspace', include: '**/libs/*.jar', exclude: 'tests/*')
+FileTree gradleBundles = fileTree(dir: 'gradle', include: '**/libs/*.jar', excludes: ['**/npm/**/libs/*.jar','**/kotlin-portlet/build/libs/*.jar'])
+FileTree liferayWorkspaceBundles = fileTree(dir: 'liferay-workspace', include: '**/libs/*.jar', excludes: ['**/kotlin-portlet/build/libs/*.jar','**/npm/**/build/libs/*.jar','tests/*'])
 FileTree mavenBundles = fileTree(dir: 'maven', include: '**/target/*.jar')
 
 int canonicalBundlesSize = gradleBundles.size()
@@ -23,7 +23,16 @@ int canonicalBundlesSize = gradleBundles.size()
 task bundlesSizeTest
 
 bundlesSizeTest.doLast {
+	if (canonicalBundlesSize != liferayWorkspaceBundles.size()) {
+		println gradleBundles.files
+		println liferayWorkspaceBundles.files
+	}
 	assert canonicalBundlesSize == liferayWorkspaceBundles.size()
+
+	if (canonicalBundlesSize != mavenBundles.size()) {
+		println gradleBundles.files
+		println mavenBundles.files
+	}
 	assert canonicalBundlesSize == mavenBundles.size()
 }
 
@@ -63,54 +72,62 @@ warsTest.dependsOn warsSizeTest
 task replicateSources
 
 replicateSources.doLast {
-	Closure projectFilter = {
-		it.isDirectory() && !it.name.matches("\\..*") && (it.getParent().matches("apps") || it.getParent().matches("extensions") || it.getParent().matches("overrides") || it.getParent().matches("themes"))
-	}
-
 	def canonicalSource
 
 	if (project.hasProperty('sourceProjectProp')) {
-		canonicalSource = sourceProjectProp
+		canonicalSource = file(project.getProperty('sourceProjectProp'))
 	}
 	else {
-		canonicalSource = 'gradle'
+		canonicalSource = file('gradle')
 	}
 
-	def canonicalProjects = file(canonicalSource).listFiles().findAll(projectFilter)
-	def replicationParents = files(['gradle', 'liferay-workspace', 'maven'] - canonicalSource)
+	def replicationParents = files(['gradle', 'liferay-workspace', 'maven']) - canonicalSource
 
-	println canonicalProjects
+	def canonicalProjects = []
+
+	canonicalSource.eachFileRecurse (FileType.DIRECTORIES) { dir ->
+		if(new File(dir,"bnd.bnd").exists()) {
+			canonicalProjects.add(dir);
+		}
+		if((new File(dir,"build.gradle").exists() && new File(dir,"build.gradle").text.contains("apply plugin: \'war\'")) || (new File(dir, "pom.xml").exists() && new File(dir, "pom.xml").text.contains("maven-war-plugin"))){
+			canonicalProjects.add(dir);
+		}
+		if ((new File(dir, "build.gradle").exists() && new File(dir,"build.gradle").text.contains("apply plugin: \"com.liferay.portal.tools.theme.builder\""))) {
+			canonicalProjects.add(dir);
+		}
+
+		canonicalProjects.removeAll { it.name.contains("test") }
+		canonicalProjects.removeAll { it.name.contains("npm") }
+		canonicalProjects.removeAll { it.name.contains("kotlin") }
+	}
 
 	canonicalProjects.each { canonicalProject ->
-		if ((new File(canonicalProject, "bnd.bnd").exists())) {
-			replicationParents.each { replicationParent ->
-				def replicationProjects = replicationParent.listFiles().findAll(projectFilter)
+		replicationParents.each { replicationParent ->
+			def replicationProjects = []
 
-				def replicationProject = replicationProjects.find{ it.name == canonicalProject.name }
+			replicationParent.eachFileRecurse (FileType.DIRECTORIES) { replicationProject ->
 
-				if (replicationProject == null) {
-					replicationProject = new File(replicationParent, canonicalProject.name)
-					replicationProject.mkdirs()
+				replicationProjects.add(replicationProject);
+			}
 
-					def buildFilesProject = new File(replicationParent, "blade.portlet.jsp")
+			def replicationProject = replicationProjects.find{ it.name == canonicalProject.name }
 
-					ant.copy(todir: replicationProject) {
-						fileset(dir: buildFilesProject, includes: "*")
-					}
-				}
-
+			if ((canonicalSource == ("gradle" || "liferay-workspace")) && (replicationProject == ("gradle" || "liferay-workspace"))) {
 				ant.copy(todir: replicationProject) {
-					fileset(dir: canonicalProject, includes: "*.markdown")
+					fileset(dir: canonicalProject, includes: "bnd.bnd", "build.gradle")
 				}
+			}
 
-				def replicationSrc = new File( replicationProject, 'src/' )
+			ant.copy(todir: replicationProject) {
+				fileset(dir: canonicalProject, includes: "*.markdown")
+			}
 
-				replicationSrc.deleteDir()
-
-				def canonicalSrc = new File( canonicalProject, 'src/' )
-
-				ant.copy(todir: replicationSrc) {
-					fileset(dir: canonicalSrc, includes: "**")
+			ant.copy(todir: replicationProject) {
+				fileset(dir: canonicalProject) {
+					include(name: 'src/')
+					include(name: 'service.xml')
+					include(name: '*.properties')
+					exclude(name: '**/test**/')
 				}
 			}
 		}
@@ -122,7 +139,7 @@ configurations {
 }
 
 dependencies {
-	bnd group: "biz.aQute.bnd", name: "biz.aQute.bnd", version: "3.3.0"
+	bnd group: "biz.aQute.bnd", name: "biz.aQute.bnd", version: "3.5.0"
 }
 
 repositories {
@@ -161,7 +178,7 @@ bundlesDiffTest.doLast{
 		}
 	}
 
-		if (!errorList.empty) {
+	if (!errorList.empty) {
 		throw new GradleException(errorList.toListString())
 	}
 }
@@ -233,11 +250,10 @@ warsDiffTest.doLast{
 }
 
 task wrapper(type: Wrapper) {
-	gradleVersion = '4.0'
-	jarFile = "${project.projectDir}/gradle/.gradle-wrapper/gradle-wrapper.jar"
+	gradleVersion = '4.1'
+	jarFile = "${projectDir}/.gradle/gradle-wrapper.jar"
 }
 
 task diff
 
-diff.dependsOn bundlesDiffTest
-diff.dependsOn warsDiffTest
+diff.dependsOn bundlesTest, warsTest, bundlesDiffTest, warsDiffTest

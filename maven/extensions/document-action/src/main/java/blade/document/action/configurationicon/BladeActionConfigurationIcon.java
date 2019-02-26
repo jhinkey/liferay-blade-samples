@@ -1,15 +1,17 @@
 /**
- * Copyright (c) 2000-present Liferay, Inc. All rights reserved.
+ * Copyright 2000-present Liferay, Inc.
  *
- * This library is free software; you can redistribute it and/or modify it under
- * the terms of the GNU Lesser General Public License as published by the Free
- * Software Foundation; either version 2.1 of the License, or (at your option)
- * any later version.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
  *
- * This library is distributed in the hope that it will be useful, but WITHOUT
- * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
- * FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
- * details.
+ *   http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 
 package blade.document.action.configurationicon;
@@ -23,6 +25,7 @@ import com.liferay.portal.kernel.portlet.PortletURLFactoryUtil;
 import com.liferay.portal.kernel.portlet.configuration.icon.BasePortletConfigurationIcon;
 import com.liferay.portal.kernel.portlet.configuration.icon.PortletConfigurationIcon;
 import com.liferay.portal.kernel.repository.model.FileEntry;
+import com.liferay.portal.kernel.repository.model.FileVersion;
 import com.liferay.portal.kernel.theme.ThemeDisplay;
 import com.liferay.portal.kernel.util.Constants;
 import com.liferay.portal.kernel.util.ParamUtil;
@@ -79,16 +82,20 @@ public class BladeActionConfigurationIcon extends BasePortletConfigurationIcon {
 		String fileName = fileEntry.getFileName();
 		String mimeType = fileEntry.getMimeType();
 		String version = fileEntry.getVersion();
-		String createdDate = fileEntry.getCreateDate().toString();
+		String createdDate = String.valueOf(fileEntry.getCreateDate());
 		String createdUserName = fileEntry.getUserName();
+
 		String statusLabel = null;
 
 		try {
-			statusLabel = WorkflowConstants.getStatusLabel(
-				fileEntry.getLatestFileVersion().getStatus());
+			FileVersion fileVersion = fileEntry.getLatestFileVersion();
+
+			int status = fileVersion.getStatus();
+
+			statusLabel = WorkflowConstants.getStatusLabel(status);
 		}
 		catch (PortalException pe) {
-			_log.error(pe);
+			_log.error(pe.getMessage(), pe);
 		}
 
 		portletURL.setParameter("fileName", fileName);
@@ -102,7 +109,7 @@ public class BladeActionConfigurationIcon extends BasePortletConfigurationIcon {
 			portletURL.setWindowState(LiferayWindowState.POP_UP);
 		}
 		catch (WindowStateException wse) {
-			_log.error(wse);
+			_log.error(wse.getMessage(), wse);
 		}
 
 		StringBuilder stringBuilder = new StringBuilder();
@@ -145,7 +152,7 @@ public class BladeActionConfigurationIcon extends BasePortletConfigurationIcon {
 			return fileEntry;
 		}
 		catch (PortalException pe) {
-			_log.error(pe);
+			_log.error(pe.getMessage(), pe);
 
 			return null;
 		}

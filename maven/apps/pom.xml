@@ -20,11 +20,15 @@
 		<module>ds-portlet</module>
 		<module>filter-portlet</module>
 		<module>freemarker-portlet</module>
+		<module>greedy-policy-option-portlet</module>
 		<module>jsp-portlet</module>
+		<module>jsp-war-portlet</module>
+		<module>npm</module>
 		<module>osgi-portlet</module>
 		<module>render-command-portlet</module>
 		<module>resource-command-portlet</module>
 		<module>rest</module>
+		<module>sample-verifier</module>
 		<module>service-builder</module>
 		<module>shared-language-keys</module>
 		<module>simulation-panel-app</module>

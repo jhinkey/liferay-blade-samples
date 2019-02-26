@@ -1,15 +1,17 @@
 /**
- * Copyright (c) 2000-present Liferay, Inc. All rights reserved.
+ * Copyright 2000-present Liferay, Inc.
  *
- * This library is free software; you can redistribute it and/or modify it under
- * the terms of the GNU Lesser General Public License as published by the Free
- * Software Foundation; either version 2.1 of the License, or (at your option)
- * any later version.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
  *
- * This library is distributed in the hope that it will be useful, but WITHOUT
- * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
- * FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
- * details.
+ *   http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 
 package com.liferay.blade.samples.configurationaction;
@@ -42,9 +44,7 @@ import org.osgi.service.component.annotations.Modified;
 @Component(
 	configurationPid = "com.liferay.blade.samples.configurationaction.MessageDisplayConfiguration",
 	configurationPolicy = ConfigurationPolicy.OPTIONAL, immediate = true,
-	property = {
-		"javax.portlet.name=" + BladeMessagePortletKeys.BladeMessagePortlet
-	},
+	property = "javax.portlet.name=" + BladeMessagePortletKeys.BLADE_MESSAGE_PORTLET,
 	service = ConfigurationAction.class
 )
 public class MessageDisplayConfigurationAction
@@ -56,8 +56,8 @@ public class MessageDisplayConfigurationAction
 			HttpServletResponse httpServletResponse)
 		throws Exception {
 
-		if (_log.isDebugEnabled()) {
-			_log.debug("Blade Message Portlet configuration include");
+		if (_log.isInfoEnabled()) {
+			_log.info("Blade Message Portlet configuration include");
 		}
 
 		httpServletRequest.setAttribute(
@@ -73,20 +73,22 @@ public class MessageDisplayConfigurationAction
 			ActionResponse actionResponse)
 		throws Exception {
 
-		if (_log.isDebugEnabled()) {
-			_log.debug("Blade Message Portlet configuration action");
+		if (_log.isInfoEnabled()) {
+			_log.info("Blade Message Portlet configuration action");
 		}
 
 		String fontColor = ParamUtil.getString(actionRequest, "fontColor");
 		String fontFamily = ParamUtil.getString(actionRequest, "fontFamily");
 		String fontSize = ParamUtil.getString(actionRequest, "fontSize");
 
-		if (_log.isDebugEnabled()) {
-			_log.debug(
-				"Message Display Configuration: Font Family:" + fontFamily);
-			_log.debug("Message Display Configuration: Font Size:" + fontSize);
-			_log.debug(
-				"Message Display Configuration: Font Color:" + fontColor);
+		if (_log.isInfoEnabled()) {
+			_log.info(
+				"Message Display Configuration: Font Family: " + fontFamily);
+
+			_log.info("Message Display Configuration: Font Size: " + fontSize);
+
+			_log.info(
+				"Message Display Configuration: Font Color: " + fontColor);
 		}
 
 		setPreference(actionRequest, "fontColor", fontColor);

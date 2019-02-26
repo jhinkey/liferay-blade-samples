@@ -1,15 +1,17 @@
 /**
- * Copyright (c) 2000-present Liferay, Inc. All rights reserved.
+ * Copyright 2000-present Liferay, Inc.
  *
- * This library is free software; you can redistribute it and/or modify it under
- * the terms of the GNU Lesser General Public License as published by the Free
- * Software Foundation; either version 2.1 of the License, or (at your option)
- * any later version.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
  *
- * This library is distributed in the hope that it will be useful, but WITHOUT
- * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
- * FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
- * details.
+ *   http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 
 package com.liferay.blade.samples.strutsportletaction;
@@ -38,7 +40,7 @@ import org.osgi.service.component.annotations.Reference;
  * @author Liferay
  */
 @Component(
-	immediate = true, property = {"path=/login/login"},
+	immediate = true, property = "path=/login/login",
 	service = StrutsPortletAction.class
 )
 public class BladePortletAction extends BaseStrutsPortletAction {
@@ -50,8 +52,8 @@ public class BladePortletAction extends BaseStrutsPortletAction {
 			ActionResponse actionResponse)
 		throws Exception {
 
-		if (_log.isDebugEnabled()) {
-			_log.debug("BladePortletAction - procesAction");
+		if (_log.isInfoEnabled()) {
+			_log.info("BladePortletAction - processAction");
 		}
 
 		ThemeDisplay themeDisplay = (ThemeDisplay)actionRequest.getAttribute(
@@ -59,14 +61,16 @@ public class BladePortletAction extends BaseStrutsPortletAction {
 
 		User loggedinUser = themeDisplay.getUser();
 
-		if ((loggedinUser != null) && _log.isInfoEnabled()) {
-			_log.info(
-				"Logging in with user:[" + loggedinUser.getFirstName() + " " +
-					loggedinUser.getLastName() + "]");
+		if (loggedinUser != null) {
+			if (_log.isInfoEnabled()) {
+				_log.info(
+					"Logging in with user:[" + loggedinUser.getFirstName() +
+						" " + loggedinUser.getLastName() + "]");
 
-			_log.info(
-				"Logged in user: Current Greetings[" +
-					loggedinUser.getGreeting() + "]");
+				_log.info(
+					"Logged in user: Current Greetings[" +
+						loggedinUser.getGreeting() + "]");
+			}
 		}
 
 		originalStrutsPortletAction.processAction(
@@ -81,8 +85,8 @@ public class BladePortletAction extends BaseStrutsPortletAction {
 			RenderResponse renderResponse)
 		throws Exception {
 
-		if (_log.isDebugEnabled()) {
-			_log.debug("BladePortletAction - render");
+		if (_log.isInfoEnabled()) {
+			_log.info("BladePortletAction - render");
 		}
 
 		ThemeDisplay themeDisplay = (ThemeDisplay)renderRequest.getAttribute(
@@ -111,8 +115,8 @@ public class BladePortletAction extends BaseStrutsPortletAction {
 			ResourceResponse resourceResponse)
 		throws Exception {
 
-		if (_log.isDebugEnabled()) {
-			_log.debug("BladePortletAction - serveResource");
+		if (_log.isInfoEnabled()) {
+			_log.info("BladePortletAction - serveResource");
 		}
 
 		originalStrutsPortletAction.serveResource(

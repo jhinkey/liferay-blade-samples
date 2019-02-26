@@ -1,15 +1,17 @@
 /**
- * Copyright (c) 2000-present Liferay, Inc. All rights reserved.
+ * Copyright 2000-present Liferay, Inc.
  *
- * This library is free software; you can redistribute it and/or modify it under
- * the terms of the GNU Lesser General Public License as published by the Free
- * Software Foundation; either version 2.1 of the License, or (at your option)
- * any later version.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
  *
- * This library is distributed in the hope that it will be useful, but WITHOUT
- * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
- * FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
- * details.
+ *   http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 
 package com.liferay.blade.samples.lifecycle.loginpreaction;
@@ -17,6 +19,8 @@ package com.liferay.blade.samples.lifecycle.loginpreaction;
 import com.liferay.portal.kernel.events.ActionException;
 import com.liferay.portal.kernel.events.LifecycleAction;
 import com.liferay.portal.kernel.events.LifecycleEvent;
+import com.liferay.portal.kernel.log.Log;
+import com.liferay.portal.kernel.log.LogFactoryUtil;
 
 import org.osgi.service.component.annotations.Component;
 
@@ -24,7 +28,7 @@ import org.osgi.service.component.annotations.Component;
  * @author Liferay
  */
 @Component(
-	immediate = true, property = {"key=login.events.pre"},
+	immediate = true, property = "key=login.events.pre",
 	service = LifecycleAction.class
 )
 public class LoginPreAction implements LifecycleAction {
@@ -34,6 +38,12 @@ public class LoginPreAction implements LifecycleAction {
 		throws ActionException {
 
 		System.out.println("login.event.pre=" + lifecycleEvent);
+
+		if (_log.isInfoEnabled()) {
+			_log.info("Blade Login Pre Action");
+		}
 	}
+
+	private static final Log _log = LogFactoryUtil.getLog(LoginPreAction.class);
 
 }

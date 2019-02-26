@@ -42,5 +42,4 @@ page import="com.liferay.taglib.search.ResultRow" %>
 PortletURL portletURL = renderResponse.createRenderURL();
 
 String currentURL = portletURL.toString();
-
 %>

@@ -1,8 +1,10 @@
-# Bootstrap Liferay Advanced Developer Environments (BLADE)
+# Bootstrap Liferay Advanced Developer Environments (BLADE) for Liferay Portal 7.1
 
 Liferay's Blade samples provides bootstrap project environments for all major
 build tools in common use for Java projects so that Liferay development can
-start quickly and easily.
+start quickly and easily. These templates can be copied freely and contributions
+are welcome. See the [Contribution Guidelines](#contribution-guidelines) for
+more information on how to contribute new sample projects and/or documentation.
 
 ## Build Tools
 
@@ -15,6 +17,36 @@ The template projects are categorized under three build tools:
   environment.
 * `maven` - A set of Liferay projects that can be bootstrapped onto the *Maven*
   development environment.
+
+## Contribution Guidelines
+
+When contributing a new sample, you **must** include accompanying documentation.
+
+### Sample Code
+
+You can contribute additional template samples by creating the project for one
+of the three build tools and sending a pull request to
+`liferay/liferay-blade-samples`. A repository admin will review the submission
+and replicate the project for the other three build tools, once the submission
+is approved.
+
+### Sample Docs
+
+You can contribute documentation by adding a `README.markdown` file to the root
+folder of a sample project. This article should include the following sections:
+
+- *What does this sample do when it's deployed?*
+- *What API(s) and/or code components does this sample highlight?*
+- *How does this sample leverage the API(s) and/or code component?*
+
+For example, the
+[Resource Bundle Override](https://dev.liferay.com/develop/reference/-/knowledge_base/7-1/resource-bundle-override)
+article explains the `resource-bundle-override` sample using the aforementioned
+sections.
+
+You can send a pull request to `codyhoag/liferay-blade-samples` for
+documentation-only submissions, or tag `@codyhoag` in a new sample contributed
+to `liferay/liferay-blade-samples` that includes documentation.
 
 ## Frameworks
 
@@ -38,13 +70,11 @@ Three bundles are needed:
 Simply download the bundles from [mvnrepository](https://mvnrepository.com/) and
 drop them in your `osgi/modules` folder before deploying Blueprint bundles.
 
-## Liferay Extension Points and Template Projects 
+## Liferay Extension Points and Template Projects
 
 ## Apps
 
 ### Action Command Portlet
-
-**Extension point description**: 
 
 **Template project description**: Demonstrates the `MVCActionCommand` extension
 point. It integrates the action command named `greet` with portlet `greeter`. To
@@ -54,8 +84,6 @@ see how this example works, a portlet plugin with a portlet named **greeter**
 `GREETER_MESSAGE`. You can independently deploy the bundle
 `blade.portlet.actioncommand` (i.e., refresh the bundle without the need to
 redeploy the Portlet plugin).
-
-**Template projects links**:
 
 | Build tool | Link to project's source code                                                   |
 | ---------- | ------------------------------------------------------------------------------- |
@@ -68,8 +96,6 @@ redeploy the Portlet plugin).
 **Template project description**: Demonstrates how to use the Blueprint
 framework for registering a Liferay MVC portlet.
 
-**Template projects links**:
-
 | Build tool | Link to project's source code                                                   |
 | ---------- | ------------------------------------------------------------------------------- |
 | Gradle | [./gradle/apps/blueprint-portlet](./gradle/apps/blueprint-portlet) |
@@ -78,12 +104,8 @@ framework for registering a Liferay MVC portlet.
 
 ### Configuration Action
 
-**Extension point description**: 
-
 **Template project description**: Demonstrates the `ConfigurationAction`
 integration point.
-
-**Template projects links**:
 
 | Build tool | Link to project's source code                                                   |
 | ---------- | ------------------------------------------------------------------------------- |
@@ -92,12 +114,6 @@ integration point.
 | Maven      | [./maven/apps/configuration-action](./maven/apps/configuration-action)          |
 
 ### Control Panel Portlet
-
-**Extension point description**: 
-
-**Template project description**: 
-
-**Template projects links**:
 
 | Build tool | Link to project's source code                                                   |
 | ---------- | ------------------------------------------------------------------------------- |
@@ -110,8 +126,6 @@ integration point.
 **Template project description**: Demonstrates how to use the DS (Declarative
 Services) framework for registering a Liferay MVC portlet.
 
-**Template projects links**:
-
 | Build tool | Link to project's source code                                                   |
 | ---------- | ------------------------------------------------------------------------------- |
 | Gradle | [./gradle/apps/ds-portlet](./gradle/apps/ds-portlet) |
@@ -120,11 +134,7 @@ Services) framework for registering a Liferay MVC portlet.
 
 ### Filter Portlet
 
-**Extension point description**: 
-
 **Template project description**:  Demonstrates how to apply `PortletFilter`s.
-
-**Template projects links**:
 
 | Build tool | Link to project's source code                                                   |
 | ---------- | ------------------------------------------------------------------------------- |
@@ -132,13 +142,9 @@ Services) framework for registering a Liferay MVC portlet.
 | Liferay Workspace | [./liferay-workspace/apps/filter-portlet](./liferay-workspace/apps/filter-portlet)   |
 | Maven      | [./maven/apps/filter-portlet](./maven/apps/filter-portlet)        |
 
-### FreeMarker Portlet 
-
-**Extension point description**: 
+### FreeMarker Portlet
 
 **Template project description**:  Demonstrates a simple FreeMarker portlet.
-
-**Template projects links**:
 
 | Build tool | Link to project's source code                                                   |
 | ---------- | ------------------------------------------------------------------------------- |
@@ -146,13 +152,19 @@ Services) framework for registering a Liferay MVC portlet.
 | Liferay Workspace | [./liferay-workspace/apps/freemarker-portlet](./liferay-workspace/apps/freemarker-portlet)   |
 | Maven      | [./maven/apps/freemarker-portlet](./maven/apps/freemarker-portlet)        |
 
-### JSP Portlet 
+### Greedy Policy Option Portlet
 
-**Extension point description**: 
+Refer to this sample's Readmes for more information.
+
+| Build tool | Link to project's source code                                                   |
+| ---------- | ------------------------------------------------------------------------------- |
+| Gradle | [./gradle/apps/greedy-policy-option-portlet](./gradle/apps/greedy-policy-option-portlet) |
+| Liferay Workspace | [./liferay-workspace/apps/greedy-policy-option-portlet](./liferay-workspace/apps/greedy-policy-option-portlet)   |
+| Maven      | [./maven/apps/greedy-policy-option-portlet](./maven/apps/greedy-policy-option-portlet)        |
+
+### JSP Portlet
 
 **Template project description**:  Demonstrates a simple JSP portlet.
-
-**Template projects links**:
 
 | Build tool | Link to project's source code                                                   |
 | ---------- | ------------------------------------------------------------------------------- |
@@ -160,12 +172,100 @@ Services) framework for registering a Liferay MVC portlet.
 | Liferay Workspace | [./liferay-workspace/apps/jsp-portlet](./liferay-workspace/apps/jsp-portlet)   |
 | Maven      | [./maven/apps/jsp-portlet](./maven/apps/jsp-portlet)        |
 
+### JSP WAR Portlet
+
+| Build tool | Link to project's source code                                                   |
+| ---------- | ------------------------------------------------------------------------------- |
+| Gradle | [./gradle/apps/jsp-war-portlet](./gradle/apps/jsp-war-portlet) |
+| Liferay Workspace | [./liferay-workspace/wars/jsp-war-portlet](./liferay-workspace/wars/jsp-war-portlet)   |
+| Maven      | [./maven/apps/jsp-portlet](./maven/apps/jsp-war-portlet)        |
+
+### Kotlin Portlet
+
+| Build tool | Link to project's source code                                                   |
+| ---------- | ------------------------------------------------------------------------------- |
+| Gradle | [./gradle/apps/kotlin-portlet](./gradle/apps/kotlin-portlet) |
+
+### npm Deduplication Portlets
+
+#### Angular
+
+Refer to this sample's Readme for more information.
+
+| Build tool | Link to project's source code                                                   |
+| ---------- | ------------------------------------------------------------------------------- |
+| Gradle | [./gradle/apps/npm-deduplication-portlets/angular](./gradle/apps/npm-deduplication-portlets/angular) |
+
+### npm
+
+#### Angular npm Portlet
+
+Refer to this sample's Readme for more information.
+
+| Build tool | Link to project's source code                                                   |
+| ---------- | ------------------------------------------------------------------------------- |
+| Gradle | [./gradle/apps/npm/angular-npm-portlet](./gradle/apps/npm/angular-npm-portlet) |
+
+#### Angular 6 npm Portlet
+
+Refer to this sample's Readme for more information.
+
+| Build tool | Link to project's source code                                                   |
+| ---------- | ------------------------------------------------------------------------------- |
+| Gradle | [./gradle/apps/npm/angular6-npm-portlet](./gradle/apps/npm/angular6-npm-portlet) |
+
+#### Billboard.js npm Portlet
+
+Refer to this sample's Readme for more information.
+
+| Build tool | Link to project's source code                                                   |
+| ---------- | ------------------------------------------------------------------------------- |
+| Gradle | [./gradle/apps/npm/billboardjs-npm-portlet](./gradle/apps/npm/billboardjs-npm-portlet) |
+
+#### jQuery npm Portlet
+
+Refer to this sample's Readme for more information.
+
+| Build tool | Link to project's source code                                                   |
+| ---------- | ------------------------------------------------------------------------------- |
+| Gradle | [./gradle/apps/npm/jquery-npm-portlet](./gradle/apps/npm/jquery-npm-portlet) |
+
+#### Metal.js npm Portlet
+
+Refer to this sample's Readme for more information.
+
+| Build tool | Link to project's source code                                                   |
+| ---------- | ------------------------------------------------------------------------------- |
+| Gradle | [./gradle/apps/npm/metaljs-npm-portlet](./gradle/apps/npm/metaljs-npm-portlet) |
+
+#### React npm Portlet
+
+Refer to this sample's Readme for more information.
+
+| Build tool | Link to project's source code                                                   |
+| ---------- | ------------------------------------------------------------------------------- |
+| Gradle | [./gradle/apps/npm/react-npm-portlet](./gradle/apps/npm/react-npm-portlet) |
+
+#### Simple npm Portlet
+
+Refer to this sample's Readme for more information.
+
+| Build tool | Link to project's source code                                                   |
+| ---------- | ------------------------------------------------------------------------------- |
+| Gradle | [./gradle/apps/npm/simple-npm-portlet](./gradle/apps/npm/simple-npm-portlet) |
+
+#### Vue.js npm Portlet
+
+Refer to this sample's Readme for more information.
+
+| Build tool | Link to project's source code                                                   |
+| ---------- | ------------------------------------------------------------------------------- |
+| Gradle | [./gradle/apps/npm/vuejs-npm-portlet](./gradle/apps/npm/vuejs-npm-portlet) |
+
 ### OSGi Portlet
 
 **Template project description**: Demonstrates how to use the raw OSGI APIs for
 registering a Liferay MVC portlet.
-
-**Template projects links**:
 
 | Build tool | Link to project's source code                                                   |
 | ---------- | ------------------------------------------------------------------------------- |
@@ -175,12 +275,6 @@ registering a Liferay MVC portlet.
 
 ### Render Command Portlet
 
-**Extension point description**: 
-
-**Template project description**:
-
-**Template projects links**:
-
 | Build tool | Link to project's source code                                                   |
 | ---------- | ------------------------------------------------------------------------------- |
 | Gradle | [./gradle/apps/render-command-portlet](./gradle/apps/render-command-portlet) |
@@ -189,17 +283,11 @@ registering a Liferay MVC portlet.
 
 ### Resource Command Portlet
 
-**Extension point description**: 
-
-**Template project description**:
-
-**Template projects links**:
-
 | Build tool | Link to project's source code                                                   |
 | ---------- | ------------------------------------------------------------------------------- |
 | Gradle | [./gradle/apps/resource-command-portlet](./gradle/apps/resource-command-portlet) |
 | Liferay Workspace | [./liferay-workspace/apps/resource-command-portlet](./liferay-workspace/apps/resource-command-portlet)   |
-| Maven      | [./maven/apps/resource-command-portlet](./maven/apps/resource-command-portlet)   
+| Maven      | [./maven/apps/resource-command-portlet](./maven/apps/resource-command-portlet)
 
 ### REST
 
@@ -224,42 +312,70 @@ endpoints for it. To do so, go to the Control Panel &rarr; *System* &rarr;
 Then you can access the service via
 [http://localhost:8080/o/rest-test/blade.users/list/](http://localhost:8080/o/rest-test/blade.users/list/).
 
-**Template projects links**:
-
 | Build tool | Link to project's source code                                                   |
 | ---------- | ------------------------------------------------------------------------------- |
 | Gradle | [./gradle/apps/rest](./gradle/apps/rest) |
 | Liferay Workspace | [./liferay-workspace/apps/rest](./liferay-workspace/apps/rest)   |
 | Maven      | [./maven/apps/rest](./maven/apps/rest)        |
 
+### Sample Verifier
+
+| Build tool | Link to project's source code                                                   |
+| ---------- | ------------------------------------------------------------------------------- |
+| Gradle | [./gradle/apps/sample-verifier](./gradle/apps/sample-verifier) |
+| Liferay Workspace | [./liferay-workspace/apps/sample-verifier](./liferay-workspace/apps/sample-verifier)   |
+| Maven      | [./maven/apps/sample-verifier](./maven/apps/sample-verifier)        |
+
 ### Service Builder
 
-**Extension point description**: 
+#### ADQ
+
+Refer to this sample's Readme for more information.
+
+| Build tool | Link to project's source code                                                   |
+| ---------- | ------------------------------------------------------------------------------- |
+| Gradle | [./gradle/apps/service-builder/adq](./gradle/apps/service-builder/adq)  |
+| Liferay Workspace | [./liferay-workspace/apps/service-builder/adq](./liferay-workspace/apps/service-builder/adq)   |
+| Maven  | [./maven/apps/service-builder/adq](./maven/apps/service-builder/adq)  |
+
+#### Basic
 
 **Template project description**: Demonstrates how to create a Service Builder
 project separated into three bundles:
 
 * `api` bundle is for interfaces
-* `svc` bundle is for implementations
-* `web` bundle is a portlet calling the generated services 
+* `service` bundle is for implementations
+* `web` bundle is a portlet calling the generated services
 
-**Template projects links**:
+| Build tool | Link to project's source code                                                   |
+| ---------- | ------------------------------------------------------------------------------- |
+| Gradle | [./gradle/apps/service-builder/basic](./gradle/apps/service-builder/basic)  |
+| Liferay Workspace | [./liferay-workspace/apps/service-builder/basic](./liferay-workspace/apps/service-builder/basic)   |
+| Maven  | [./maven/apps/service-builder/basic](./maven/apps/service-builder/basic)  |
 
-| Build tool | subproject   | Link to project's source code                                                   |
-| ---------- | ------------ | ------------------------------------------------------------------------------- |
-| Gradle | API          | [./gradle/apps/service-builder/foo-api](./gradle/apps/service-builder/foo-api)  |
-| Gradle | Service      | [./gradle/apps/service-builder/foo-service](./gradle/apps/service-builder/foo-service)  |
-| Gradle | Web          | [./gradle/apps/service-builder/foo-web](./gradle/apps/service-builder/foo-web)  |
-| Liferay Workspace | API          | [./liferay-workspace/apps/service-builder/foo-api](./liferay-workspace/apps/service-builder/foo-api)   |
-| Liferay Workspace | Service      | [./liferay-workspace/apps/service-builder/foo-service](./liferay-workspace/apps/service-builder/foo-service)   |
-| Liferay Workspace | Web          | [./liferay-workspace/apps/service-builder/foo-web](./liferay-workspace/apps/service-builder/foo-web)   |
-| Maven  | API         | [./maven/apps/service-builder/foo-api](./maven/apps/service-builder/foo-api)  |
-| Maven  | Service     | [./maven/apps/service-builder/foo-service](./maven/apps/service-builder/foo-service)  |
-| Maven  | Web         | [./maven/apps/service-builder/foo-web](./maven/apps/service-builder/foo-web)  |
+#### JDBC
+
+Refer to this sample's Readme for more information.
+
+| Build tool | Link to project's source code                                                   |
+| ---------- | ------------------------------------------------------------------------------- |
+| Gradle | [./gradle/apps/service-builder/jdbc](./gradle/apps/service-builder/jdbc)  |
+| Liferay Workspace | [./liferay-workspace/apps/service-builder/jdbc](./liferay-workspace/apps/service-builder/jdbc)   |
+| Maven  | [./maven/apps/service-builder/jdbc](./maven/apps/service-builder/jdbc)  |
+
+#### JNDI
+
+Refer to this sample's Readme for more information.
+
+| Build tool | Link to project's source code                                                   |
+| ---------- | ------------------------------------------------------------------------------- |
+| Gradle | [./gradle/apps/service-builder/jndi](./gradle/apps/service-builder/jndi)  |
+| Liferay Workspace | [./liferay-workspace/apps/service-builder/jndi](./liferay-workspace/apps/service-builder/jndi)   |
+| Maven  | [./maven/apps/service-builder/jndi](./maven/apps/service-builder/jndi)  |
 
 ### Shared Language Keys
 
-Refer to this sample's Readmes for more information.
+Refer to this sample's Readme for more information.
 
 | Build tool | Link to project's source code                                                   |
 | ---------- | ------------------------------------------------------------------------------- |
@@ -277,7 +393,7 @@ Refer to this sample's Readme for more information.
 | Liferay Workspace | [./liferay-workspace/apps/simulation-panel-app](./liferay-workspace/apps/simulation-panel-app)   |
 | Maven      | [./maven/apps/simulation-panel-app](./maven/apps/simulation-panel-app)        |
 
-### Spring MVC Portlet 
+### Spring MVC Portlet
 
 Refer to this sample's Readme for more information.
 
@@ -287,16 +403,23 @@ Refer to this sample's Readme for more information.
 | Liferay Workspace | [./liferay-workspace/wars/springmvc-portlet](./liferay-workspace/wars/springmvc-portlet)   |
 | Maven      | [./maven/apps/springmvc-portlet](./maven/apps/springmvc-portlet)        |
 
+## Ext
+
+### Login Web Ext
+
+Refer to this sample's Readme for more information.
+
+| Build tool | Link to project's source code                                                   |
+| ---------- | ------------------------------------------------------------------------------- |
+| Gradle | [./gradle/ext/login-web-ext](./gradle/ext/login-web-ext) |
+| Liferay Workspace | [./liferay-workspace/ext/login-web-ext](./liferay-workspace/ext/login-web-ext)   |
+
 ## Extensions
 
 ### Auth Failure
 
-**Extension point description**: 
-
 **Template project description**: Demonstrates a hook for `auth.failure` and
 `auth.max.failures`.
-
-**Template projects links**:
 
 | Build tool | Link to project's source code                                                   |
 | ---------- | ------------------------------------------------------------------------------- |
@@ -304,14 +427,10 @@ Refer to this sample's Readme for more information.
 | Liferay Workspace | [./liferay-workspace/extensions/auth-failure](./liferay-workspace/extensions/auth-failure)   |
 | Maven      | [./maven/extensions/auth-failure](./maven/extensions/auth-failure)          |
 
-### Authenticator Shiro 
-
-**Extension point description**: 
+### Authenticator Shiro
 
 **Template project description**: Uses Apache Shiro for hooking
 `auth.pipeline.pre`.
-
-**Template projects links**:
 
 | Build tool | Link to project's source code                                                   |
 | ---------- | ------------------------------------------------------------------------------- |
@@ -321,12 +440,8 @@ Refer to this sample's Readme for more information.
 
 ### Auto Login
 
-**Extension point description**: 
-
 **Template project description**: Demonstrates the `AutoLogin` integration
 point.
-
-**Template projects links**:
 
 | Build tool | Link to project's source code                                                   |
 | ---------- | ------------------------------------------------------------------------------- |
@@ -345,12 +460,6 @@ Refer to this sample's Readme for more information.
 | Maven      | [./maven/extensions/control-menu-entry](./maven/extensions/control-menu-entry)          |
 
 ### Doclib Resource Command Override
-
-**Extension point description**: 
-
-**Template project description**: 
-
-**Template projects links**:
 
 | Build tool | Link to project's source code                                                   |
 | ---------- | ------------------------------------------------------------------------------- |
@@ -384,8 +493,6 @@ URLs:
 * http://localhost:8080/web/guest/home/-/NetworkUtilities/dns-lookup
 * http://localhost:8080/web/guest/home/-/NetworkUtilities/whois
 
-**Template projects links**:
-
 | Build tool | Link to project's source code                                                   |
 | ---------- | ------------------------------------------------------------------------------- |
 | Gradle | [./gradle/extensions/friendly-url](./gradle/extensions/friendly-url) |
@@ -402,14 +509,19 @@ Refer to this sample's Readme for more information.
 | Liferay Workspace | [./liferay-workspace/extensions/gogo](./liferay-workspace/extensions/gogo)   |
 | Maven      | [./maven/extensions/gogo](./maven/extensions/gogo)          |
 
+### Index Settings Contributor
+
+Refer to this sample's Readme for more information.
+
+| Build tool | Link to project's source code                                                   |
+| ---------- | ------------------------------------------------------------------------------- |
+| Gradle | [./gradle/extensions/index-settings-contributor](./gradle/extensions/index-settings-contributor) |
+| Liferay Workspace | [./liferay-workspace/extensions/index-settings-contributor](./liferay-workspace/extensions/index-settings-contributor)   |
+| Maven      | [./maven/extensions/index-settings-contributor](./maven/extensions/index-settings-contributor)          |
+
 ### Indexer Post Processor
 
-**Extension point description**: 
-
-**Template project description**: Demonstrates how to create a custom
-`IndexerPostProcessor`.
-
-**Template projects links**:
+Refer to this sample's Readme for more information.
 
 | Build tool | Link to project's source code                                                   |
 | ---------- | ------------------------------------------------------------------------------- |
@@ -451,10 +563,8 @@ following keys are supported:
   session.
 * `servlet.session.destroy.events` - fired during destruction of a portal's HTTP
   session.
-  
-**Template project description**:  Demonstrates a hook for `login.events.pre`.
 
-**Template projects links**:
+**Template project description**:  Demonstrates a hook for `login.events.pre`.
 
 | Build tool | Link to project's source code                                                   |
 | ---------- | ------------------------------------------------------------------------------- |
@@ -466,8 +576,6 @@ following keys are supported:
 
 Refer to this sample's Readme for more information.
 
-**Template projects links**:
-
 | Build tool | Link to project's source code                                                   |
 | ---------- | ------------------------------------------------------------------------------- |
 | Gradle | [./gradle/extensions/model-listener](./gradle/extensions/model-listener) |
@@ -476,12 +584,8 @@ Refer to this sample's Readme for more information.
 
 ### Poll Processor
 
-**Extension point description**: 
-
 **Template project description**: Demonstrates how to make a hook for a
 `PollerProcessor`.
-
-**Template projects links**:
 
 | Build tool | Link to project's source code                                                   |
 | ---------- | ------------------------------------------------------------------------------- |
@@ -491,12 +595,6 @@ Refer to this sample's Readme for more information.
 
 ### Portlet Configuration Icon
 
-**Extension point description**: 
-
-**Template project description**: 
-
-**Template projects links**:
-
 | Build tool | Link to project's source code                                                   |
 | ---------- | ------------------------------------------------------------------------------- |
 | Gradle | [./gradle/extensions/portlet-configuration-icon](./gradle/extensions/portlet-configuration-icon) |
@@ -504,12 +602,6 @@ Refer to this sample's Readme for more information.
 | Maven      | [./maven/extensions/portlet-configuration-icon](./maven/extensions/portlet-configuration-icon)        |
 
 ### Portlet Toolbar Contributor
-
-**Extension point description**: 
-
-**Template project description**: 
-
-**Template projects links**:
 
 | Build tool | Link to project's source code                                                   |
 | ---------- | ------------------------------------------------------------------------------- |
@@ -519,12 +611,6 @@ Refer to this sample's Readme for more information.
 
 ### Resource Bundle
 
-**Extension point description**: 
-
-**Template project description**: 
-
-**Template projects links**:
-
 | Build tool | Link to project's source code                                                   |
 | ---------- | ------------------------------------------------------------------------------- |
 | Gradle | [./gradle/extensions/resource-bundle](./gradle/extensions/resource-bundle) |
@@ -532,12 +618,6 @@ Refer to this sample's Readme for more information.
 | Maven      | [./maven/extensions/resource-bundle](./maven/extensions/resource-bundle)        |
 
 ### Scheduler Entry
-
-**Extension point description**: 
-
-**Template project description**: 
-
-**Template projects links**:
 
 | Build tool | Link to project's source code                                                   |
 | ---------- | ------------------------------------------------------------------------------- |
@@ -555,13 +635,39 @@ Refer to this sample's Readme for more information.
 | Liferay Workspace | [./liferay-workspace/extensions/screen-name-validator](./liferay-workspace/extensions/screen-name-validator)   |
 | Maven      | [./maven/extensions/screen-name-validator](./maven/extensions/screen-name-validator)        |
 
+### Search Keyword Query Contributor
+
+Refer to this sample's Readme for more information.
+
+| Build tool | Link to project's source code                                                   |
+| ---------- | ------------------------------------------------------------------------------- |
+| Gradle | [./gradle/extensions/search-keyword-query-contributor](gradle/extensions/search-keyword-query-contributor) |
+| Liferay Workspace | [./liferay-workspace/extensions/search-keyword-query-contributor](./liferay-workspace/extensions/search-keyword-query-contributor) |
+| Maven      | [./maven/extensions/search-keyword-query-contributor](maven/extensions/search-keyword-query-contributor) |
+
+### Search Model Pre-Filter Contributor
+
+Refer to this sample's Readme for more information.
+
+| Build tool | Link to project's source code                                                   |
+| ---------- | ------------------------------------------------------------------------------- |
+| Gradle | [./gradle/extensions/search-model-pre-filter-contributor](./gradle/extensions/search-model-pre-filter-contributor) |
+| Liferay Workspace | [./liferay-workspace/extensions/search-model-pre-filter-contributor](./liferay-workspace/extensions/search-model-pre-filter-contributor)   |
+| Maven      | [./maven/extensions/search-model-pre-filter-contributor](./maven/extensions/search-model-pre-filter-contributor)     
+
+### Servlet
+
+Refer to this sample's Readme for more information.
+
+| Build tool | Link to project's source code                                                   |
+| ---------- | ------------------------------------------------------------------------------- |
+| Gradle | [./gradle/extensions/servlet](./gradle/extensions/servlet) |
+| Liferay Workspace | [./liferay-workspace/extensions/servlet](./liferay-workspace/extensions/servlet)   |
+| Maven      | [./maven/extensions/servlet](./maven/extensions/servlet)        |
+
 ### Struts Action
 
-**Extension point description**: 
-
 **Template project description**:  Demonstrates how to write a `StrutsAction`.
-
-**Template projects links**:
 
 | Build tool | Link to project's source code                                                   |
 | ---------- | ------------------------------------------------------------------------------- |
@@ -571,12 +677,8 @@ Refer to this sample's Readme for more information.
 
 ### Struts Portlet Action
 
-**Extension point description**: 
-
 **Template project description**: Demonstrates how to write a
 `StrutsPortletAction`.
-
-**Template projects links**:
 
 | Build tool | Link to project's source code                                                   |
 | ---------- | ------------------------------------------------------------------------------- |
@@ -586,12 +688,8 @@ Refer to this sample's Readme for more information.
 
 ### User Service Wrapper
 
-**Extension point description**: 
-
 **Template project description**: Demonstrates how to wrap the
 `UserLocalService` with custom a `UserLocalServiceWrapper`.
-
-**Template projects links**:
 
 | Build tool | Link to project's source code                                                   |
 | ---------- | ------------------------------------------------------------------------------- |
@@ -620,6 +718,14 @@ Refer to this sample's Readme for more information.
 | Gradle | [./gradle/overrides/module-jsp-override](./gradle/overrides/module-jsp-override) |
 | Liferay Workspace | [./liferay-workspace/overrides/module-jsp-override](./liferay-workspace/overrides/module-jsp-override)   |
 | Maven      | [./maven/overrides/module-jsp-override](./maven/overrides/module-jsp-override)          |
+
+### Portlet Form Taglib Override
+
+| Build tool | Link to project's source code                                                   |
+| ---------- | ------------------------------------------------------------------------------- |
+| Gradle | [./gradle/overrides/portlet-form-taglib-override](./gradle/overrides/portlet-form-taglib-override) |
+| Liferay Workspace | [./liferay-workspace/overrides/portlet-form-taglib-override](./liferay-workspace/overrides/portlet-form-taglib-override)   |
+| Maven      | [./maven/overrides/portlet-form-taglib-override](./maven/overrides/portlet-form-taglib-override)          |
 
 ### Resource Bundle Override
 
@@ -678,7 +784,7 @@ points. We encourage you to contribute some!
 * com.liferay.portal.kernel.pop.MessageListener
 * com.liferay.portal.kernel.portlet.FriendlyURLMapper
 * com.liferay.portal.kernel.portlet.PortletLayoutListener
-* com.liferay.portal.kernel.sanitizer.Sanitizer 
+* com.liferay.portal.kernel.sanitizer.Sanitizer
 * com.liferay.portal.kernel.scheduler.SchedulerEntry
 * com.liferay.portal.kernel.search.Indexer
 * com.liferay.portal.kernel.search.OpenSearch
@@ -693,7 +799,7 @@ points. We encourage you to contribute some!
 * com.liferay.portal.model.ModelListener
 * com.liferay.portal.security.auth.AuthToken
 * com.liferay.portal.security.auth.AuthVerifierConfiguration
-* com.liferay.portal.security.auth.AutoLogin 
+* com.liferay.portal.security.auth.AutoLogin
 * com.liferay.portal.security.auth.EmailAddressGenerator
 * com.liferay.portal.security.auth.EmailAddressValidator
 * com.liferay.portal.security.auth.FullNameGenerator
@@ -728,14 +834,6 @@ points. We encourage you to contribute some!
 ## License
 
 [License](/LICENSE.txt)
-
-## Contribution
-
-These templates can be copied freely and contributions are welcome. You can
-contribute additional template samples by creating the project for one of the
-three build tools and sending a pull request to `liferay/liferay-blade-samples`.
-A repository admin will review the submission and replicate the project for the
-other three build tools, once the submission is approved.
 
 ## References
 

@@ -1,4 +1,3 @@
-
 /**
  * Copyright 2000-present Liferay, Inc.
  *
@@ -20,6 +19,7 @@ package com.liferay.blade.samples.language.web.test;
 import aQute.remote.util.JMXBundleDeployer;
 
 import com.liferay.arquillian.portal.annotation.PortalURL;
+import com.liferay.blade.sample.test.functional.utils.BladeSampleFunctionalActionUtil;
 import com.liferay.portal.kernel.exception.PortalException;
 
 import java.io.File;
@@ -41,8 +41,6 @@ import org.junit.runner.RunWith;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 
 /**
  * @author Lawrence Lee
@@ -72,36 +70,26 @@ public class BladeLanguageWebTest {
 	public void testBladeSamplesLanguage() throws PortalException {
 		_webDriver.get(_portletURL.toExternalForm());
 
+		BladeSampleFunctionalActionUtil.implicitWait(_webDriver);
+
 		Assert.assertTrue(
-			"Portlet was not deployed", isVisible(_bladeSampleLanguagePortlet));
+			"Portlet was not deployed",
+			_bladeSampleLanguagePortlet.isDisplayed());
 		Assert.assertTrue(
 			_languageKeyFirst.getText(),
-			_languageKeyFirst.getText().contentEquals(
+			_languageKeyFirst.getText().equals(
 				"Hello from BLADE Language Web!"));
 		Assert.assertTrue(
 			_languageKeySecond.getText(),
-			_languageKeySecond.getText().contentEquals(
+			_languageKeySecond.getText().equals(
 				"Hello from the BLADE Language Module!"));
 		Assert.assertTrue(
 			_languageKeyThird.getText(),
-			_languageKeyThird.getText().contentEquals(
+			_languageKeyThird.getText().equals(
 				"I have overridden the key from BLADE Language Module!"));
 	}
 
-	protected boolean isVisible(WebElement webelement) {
-		WebDriverWait webDriverWait = new WebDriverWait(_webDriver, 5);
-
-		try {
-			webDriverWait.until(ExpectedConditions.visibilityOf(webelement));
-
-			return true;
-		}
-		catch (org.openqa.selenium.TimeoutException te) {
-			return false;
-		}
-	}
-
-	private static String _languageJarBSN = "language";
+	private static String _languageJarBSN = "com.liferay.blade.language";
 
 	@FindBy(xpath = "//div[contains(@id,'_com_liferay_blade_samples_language_web')]")
 	private WebElement _bladeSampleLanguagePortlet;
