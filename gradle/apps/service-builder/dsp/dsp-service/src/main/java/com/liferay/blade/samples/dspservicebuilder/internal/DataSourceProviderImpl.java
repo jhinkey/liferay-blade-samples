@@ -12,7 +12,7 @@ public class DataSourceProviderImpl implements DataSourceProvider {
 	public DataSource getDataSource() {
 		try {
 			return DataSourceFactoryUtil.initDataSource(
-				PropsUtil.getProperties("jdbc.ext.", true));
+                null, null, null, null, "jdbc/externalDataSource");
 		}
 		catch (Exception e) {
 			throw new RuntimeException(e);
